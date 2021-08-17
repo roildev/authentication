@@ -93,18 +93,26 @@ class App extends Component {
     }
 
     return (
-      <div className="App">
+      <div>
         <Nav
           logged_in={this.state.logged_in}
           display_form={this.display_form}
           handle_logout={this.handle_logout}
         />
-        {form}
-        <h3>
-          {this.state.logged_in
-            ? `Hello, ${this.state.username}`
-            : 'Please Log In'}
-        </h3>
+        <div className="container">
+          <div className="row">
+            <div className="mt-3">
+              {form}
+            </div>
+          </div>
+        </div>
+        <div className="p-5">
+          <h3>
+            {this.state.logged_in
+              ? `Hello, ${this.state.username}`
+              : 'Please Log In'}
+          </h3>
+        </div>
       </div>
     );
   }

@@ -3,10 +3,24 @@ import PropTypes from 'prop-types';
 
 function Nav(props) {
     const logged_out_nav = (
-        <ul>
-            <li onClick={() => props.display_form('login')}>login</li>
-            <li onClick={() => props.display_form('signup')}>signup</li>
-        </ul>
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <div className="container-fluid">
+                <a className="navbar-brand" href="/">Navbar</a>
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse" id="navbarNav">
+                    <ul className="navbar-nav">
+                        <li className="nav-item">
+                            <a style={{cursor: "pointer"}} className="nav-link" aria-current="page" onClick={() => props.display_form('login')}>LogIn</a>
+                        </li>
+                        <li className="nav-item">
+                            <a style={{cursor: "pointer"}} className="nav-link" onClick={() => props.display_form('signup')}>SignUp</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     );
 
     const logged_in_nav = (
