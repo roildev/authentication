@@ -26,8 +26,11 @@ class UserList(APIView):
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request, format=None):
-        print(f"request.data {request.data}")
         serializer = UserSerializerWithToken(data=request.data)
+        # if confirmation != password:
+        #     error = {'error': True, 'message': "Passwords must match"}
+        #     print(f"Error: {error}")
+        #     return error
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

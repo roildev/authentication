@@ -62,7 +62,8 @@ REST_FRAMEWORK = {
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
-    )
+    ),
+    'EXCEPTION_HANDLER': 'authentication.utils.my_exception_handler'
 }
 
 JWT_AUTH = {
