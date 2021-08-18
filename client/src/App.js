@@ -8,6 +8,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      errors: {},
       displayed_form: '',
       logged_in: localStorage.getItem('token') ? true : false,
       username: ''
@@ -39,12 +40,21 @@ class App extends Component {
     })
       .then(res => res.json())
       .then(json => {
-        localStorage.setItem('token', json.token);
-        this.setState({
-          logged_in: true,
-          displayed_form: '',
-          username: json.user.username
-        });
+        if (!!json.token) {
+          localStorage.setItem('token', json.token);
+          this.setState({
+            errors: {},
+            logged_in: true,
+            displayed_form: '',
+            username: json.user.username
+          });
+        } else {
+          this.setState({
+            errors: json,
+            logged_in: false,
+            displayed_form: 'login',
+          })
+        }
       });
   };
 
@@ -59,13 +69,21 @@ class App extends Component {
     })
       .then(res => res.json())
       .then(json => {
-        console.log(json)
-        localStorage.setItem('token', json.token);
-        this.setState({
-          logged_in: true,
-          displayed_form: '',
-          username: json.username
-        });
+        if (!!json.token) {
+          localStorage.setItem('token', json.token);
+          this.setState({
+            errors: {},
+            logged_in: true,
+            displayed_form: '',
+            username: json.username
+          });
+        } else {
+          this.setState({
+            errors: json,
+            logged_in: false,
+            displayed_form: 'signup',
+          })
+        }
       });
   };
 
@@ -84,10 +102,10 @@ class App extends Component {
     let form;
     switch (this.state.displayed_form) {
       case 'login':
-        form = <LoginForm handle_login={this.handle_login} />;
+        form = <LoginForm errors={this.state.errors} handle_login={this.handle_login} />;
         break;
       case 'signup':
-        form = <SignupForm handle_signup={this.handle_signup} />;
+        form = <SignupForm errors={this.state.errors} handle_signup={this.handle_signup} />;
         break;
       default:
         form = null;

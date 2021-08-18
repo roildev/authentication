@@ -12,10 +12,10 @@ function Nav(props) {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <a style={{cursor: "pointer"}} className="nav-link" aria-current="page" onClick={() => props.display_form('login')}>LogIn</a>
+                            <span style={{cursor: "pointer"}} className="nav-link" aria-current="page" onClick={() => props.display_form('login')}>LogIn</span>
                         </li>
                         <li className="nav-item">
-                            <a style={{cursor: "pointer"}} className="nav-link" onClick={() => props.display_form('signup')}>SignUp</a>
+                            <span style={{cursor: "pointer"}} className="nav-link" onClick={() => props.display_form('signup')}>SignUp</span>
                         </li>
                     </ul>
                 </div>

@@ -23,39 +23,50 @@ class SignupForm extends React.Component {
             <form onSubmit={e => this.props.handle_signup(e, this.state)}>
                 <h4>Sign Up</h4>
                 <div className="row mb-3">
-                    <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">Username</label>
-                    <div className="col-sm-10">
+                    <label htmlFor="inputUsername" className="form-label">Username</label>
+                    <div className="input-group has-validation col-sm-10">
                         <input 
                             type="text"
                             name="username"
                             value={this.state.username}
                             onChange={this.handle_change}
-                            className="form-control"
-                            id="inputEmail3" />
+                            className={`form-control ${!!('username' in this.props.errors) ? 'is-invalid' : ''}`}
+                            aria-describedby="inputGroupPrepend"
+                            required
+                            id="inputUsername" />
+                        <div className="invalid-feedback">
+                            {!!('username' in this.props.errors) ? this.props.errors['username'][0] : ''}
+                        </div>
                     </div>
                 </div>
                 <div className="row mb-3">
-                    <label htmlFor="inputPassword3" className="col-sm-2 col-form-label">Password</label>
-                    <div className="col-sm-10">
-                    <input 
-                        type="password"
-                        name="password"
-                        value={this.state.password}
-                        onChange={this.handle_change}
-                        className="form-control"
-                        id="inputPassword3" />
+                    <label htmlFor="inputPassword3" className="form-label">Password</label>
+                    <div className="input-group has-validation col-sm-10">
+                        <input 
+                            type="password"
+                            name="password"
+                            value={this.state.password}
+                            onChange={this.handle_change}
+                            className={`form-control ${!!('password' in this.props.errors) ? 'is-invalid' : ''}`}
+                            id="inputPassword3" />
+                        <div className="invalid-feedback">
+                            {!!('password' in this.props.errors) ? this.props.errors['password'][0] : ''}
+                        </div>
                     </div>
                 </div>
                 <div className="row mb-3">
-                    <label htmlFor="inputConfirmation3" className="col-sm-2 col-form-label">Confirmation</label>
-                    <div className="col-sm-10">
+                    <label htmlFor="inputConfirmation3" className="form-label">Confirmation</label>
+                    <div className="input-group has-validation col-sm-10">
                     <input 
                         type="password"
                         name="confirmation"
                         value={this.state.confirmation}
                         onChange={this.handle_change}
-                        className="form-control"
+                        className={`form-control ${!!('password' in this.props.errors) ? 'is-invalid' : ''}`}
                         id="inputConfirmation3" />
+                        <div className="invalid-feedback">
+                            {!!('password' in this.props.errors) ? this.props.errors['password'][0] : ''}
+                        </div>
                     </div>
                 </div>
                 <button type="submit" className="btn btn-primary">Log In</button>

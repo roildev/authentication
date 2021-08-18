@@ -1,17 +1,31 @@
-from rest_framework import serializers, status
+from rest_framework import  status
+from rest_framework.exceptions import ValidationError
+from rest_framework.serializers import  (
+    ModelSerializer,
+    SerializerMethodField,
+    CharField,
+)
+
 from rest_framework.response import Response
 from rest_framework_jwt.settings import api_settings
 from django.contrib.auth.models import User
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = ('username',)
 
 # I need this serializer with token only for sign up
-class UserSerializerWithToken(serializers.ModelSerializer):
-    token = serializers.SerializerMethodField()
-    password = serializers.CharField(write_only=True)
+class UserSerializerWithToken(ModelSerializer):
+    token = SerializerMethodField()
+    password = CharField(write_only=True)
+    confirmation = CharField(label='Confirmation Password', write_only=True)
+
+    def validate_password(self, value):
+        data = self.get_initial()
+        if data.get("password") != data.get("confirmation"):
+            raise ValidationError("Passwords must match.")
+        return value
 
     def get_token(self, obj):
         jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
@@ -32,5 +46,5 @@ class UserSerializerWithToken(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('token', 'username', 'password')
+        fields = ('token', 'username', 'password', 'confirmation')
 

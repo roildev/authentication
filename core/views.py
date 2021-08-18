@@ -27,10 +27,6 @@ class UserList(APIView):
 
     def post(self, request, format=None):
         serializer = UserSerializerWithToken(data=request.data)
-        # if confirmation != password:
-        #     error = {'error': True, 'message': "Passwords must match"}
-        #     print(f"Error: {error}")
-        #     return error
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
